@@ -1,4 +1,4 @@
-import pyodbc
+
 import pandas as pd
 import os
 from typing import Optional
@@ -72,6 +72,7 @@ def get_sql_connection(config: Optional[DatabaseConfig] = None):
 def load_daily_metrics(config: Optional[DatabaseConfig] = None, 
                        start_date: Optional[str] = None,
                        end_date: Optional[str] = None) -> pd.DataFrame:
+    import pyodbc
     """
     Load daily business metrics from the database.
     
