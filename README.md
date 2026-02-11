@@ -11,9 +11,13 @@ Business Anomaly Intelligence is a production-style machine learning pipeline de
 
 The system combines:
 --Statistical Baseline Detection
+
 --Isolation Forest (ML-based anomaly detection)
+
 --Business Impact Evaluation
+
 --Monitoring & Drift Checks
+
 --CI-enabled automated pipeline execution
 
 This project demonstrates end-to-end ML pipeline design with Lite MLOps practices.
