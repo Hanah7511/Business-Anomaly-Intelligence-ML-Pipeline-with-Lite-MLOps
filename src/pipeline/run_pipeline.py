@@ -9,7 +9,7 @@ Industry-Style (Moderate Complexity)
 - Structured logging
 - Clear stage separation
 - CI/CD ready
-- Portfolio ready
+
 """
 import os
 import logging
@@ -21,7 +21,11 @@ from datetime import datetime
 # Import Your Project Modules
 # ===============================
 
-from src.data.extract_metrics import extract_metrics_data
+def stage_extract(self):
+    if os.getenv("CI") == "true":
+        return self._generate_sample_data()
+    from src.data.extract_metrics import extract_metrics_data
+    return extract_metrics_data() 
 from src.data.data_validation import DataValidator
 from src.features.build_features import FeatureBuilder
 from src.models.baseline_detector import BaselineDetector
@@ -81,14 +85,17 @@ class BusinessAnomalyPipeline:
     # ===============================
     def stage_extract(self):
         logger.info("STAGE 1 — DATA EXTRACTION")
+
     # CI Mode → use synthetic data
         if os.getenv("CI") == "true":
             logger.info("Running in CI mode — using synthetic data")
             df = self._generate_sample_data()
         else:
             df = extract_metrics_data()
+
         logger.info(f"Extracted rows: {len(df)}")
         return df
+    
     def _generate_sample_data(self):
         import pandas as pd
         import numpy as np
