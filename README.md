@@ -1,4 +1,5 @@
 ###=============Business Anomaly Intelligence==============###
+
 ML Pipeline with Baseline + Isolation Forest + Lite MLOps (CI/CD)
 
 
@@ -87,7 +88,8 @@ This project demonstrates end-to-end ML pipeline design with Lite MLOps practice
                 └────────────────────────────┘
 
 
-###======================= Pipeline Stages =======================###
+###========= Pipeline Stages ==============###
+
 
 #------------------------------
 Stage 1 — Data Extraction
@@ -98,6 +100,7 @@ Stage 1 — Data Extraction
 --Synthetic data generation (CI mode)
 
 --Supports automated testing without database dependency
+
 
 
 #------------------------------
@@ -119,6 +122,7 @@ Comprehensive validation including:
 --Business logic validation
 
 Outputs structured validation report.
+
 
 
 #------------------------------
@@ -143,6 +147,7 @@ Creates 80+ features including:
 
 Missing values handled safely.
 
+
 #------------------------------
 Stage 4 — Baseline Detection (Statistical)
 #------------------------------
@@ -162,6 +167,7 @@ Multi-method anomaly detection:
 --Ensemble anomaly scoring
 
 
+
 #------------------------------
 Stage 5 — ML Detection
 #------------------------------
@@ -179,6 +185,7 @@ Model: Isolation Forest
 --Model persistence support
 
 
+
 #------------------------------
 Stage 6 — Evaluation
 #------------------------------
@@ -187,6 +194,7 @@ Stage 6 — Evaluation
 --Business impact analysis
 --Alert rate health
 --Temporal anomaly pattern analysis
+
 
 
 #------------------------------
@@ -215,7 +223,9 @@ Outputs health status:
 --🔴 Critical
 
 
-###================== CI/Lite CD(MLOps Layer) ==================###
+
+###=============== CI/Lite CD(MLOps Layer) ==============###
+
 
 This project includes GitHub Actions CI.
 
@@ -232,6 +242,7 @@ On every push to main:
 --Full pipeline run validation
 
 
+
 CI ensures:
 
 --Reproducibility
@@ -245,7 +256,8 @@ CI ensures:
 This demonstrates foundational MLOps capability.
 
 
-###================== Tech Stack ==================###
+###============== Tech Stack ==============###
+
 
 --Python 3.10
 
@@ -262,7 +274,8 @@ This demonstrates foundational MLOps capability.
 --GitHub Actions (CI/CD)
 
 
-###================== Sample Output ==================###
+###============== Sample Output =============###
+
 
 Pipeline output includes:
 
@@ -287,7 +300,7 @@ Pipeline output includes:
 46  2024-02-16   22485.451532  ...                0         -0.065957
 
 
-###================== How to Run Locally ==================###
+###============ How to Run Locally ===============###
 
 1️.Install dependencies
 
@@ -298,7 +311,7 @@ pip install -r requirements.txt
 python -m src.pipeline.run_pipeline
 
 
-###================== Key Highlights ==================###
+###============== Key Highlights =============###
 
 --Modular architecture
 
@@ -313,7 +326,7 @@ python -m src.pipeline.run_pipeline
 --Production-style logging
 
 
-###================== Future Enhancements ==================###
+###============ Future Enhancements ============###
 
 --Integrate real-time streaming data (Kafka / API ingestion)
 
@@ -328,14 +341,16 @@ python -m src.pipeline.run_pipeline
 --Integrate monitoring dashboard (Grafana / Streamlit)
 
 
-###================== Project Classification ==================###
+###=========== Project Classification =============###
 
 This project represents: End-to-End ML Pipeline + Lite MLOps Implementation
 
 Not just model training — but full lifecycle design.
 
 
+
 Author
 
 Hanah Al Haris
+
 AI / ML Engineering Student
