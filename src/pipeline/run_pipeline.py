@@ -11,7 +11,7 @@ Industry-Style (Moderate Complexity)
 - CI/CD ready
 - Portfolio ready
 """
-
+import os
 import logging
 import pandas as pd
 from pathlib import Path
@@ -81,8 +81,26 @@ class BusinessAnomalyPipeline:
     # ===============================
     def stage_extract(self):
         logger.info("STAGE 1 — DATA EXTRACTION")
-        df = extract_metrics_data()
+    # CI Mode → use synthetic data
+        if os.getenv("CI") == "true":
+            logger.info("Running in CI mode — using synthetic data")
+            df = self._generate_sample_data()
+        else:
+            df = extract_metrics_data()
         logger.info(f"Extracted rows: {len(df)}")
+        return df
+    def _generate_sample_data(self):
+        import pandas as pd
+        import numpy as np
+
+        dates = pd.date_range("2024-01-01",periods=60)
+
+        df = pd.DataFrame({
+            "metric_date": dates,
+            "daily_revenue": 20000 + np.random.normal(0, 2000, 60),
+            "successful_payments": np.random.randint(200, 400, 60),
+            "failed_payments": np.random.randint(10, 40, 60),
+        })
         return df
 
     # ===============================
