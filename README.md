@@ -1,356 +1,275 @@
-###=============Business Anomaly Intelligence==============###
+# 📊 Business Anomaly Intelligence
 
-ML Pipeline with Baseline + Isolation Forest + Lite MLOps (CI/CD)
+### ML Pipeline with Baseline + Isolation Forest + Lite MLOps (CI/CD)
 
+A production-style machine learning pipeline designed to detect anomalies in business metrics such as revenue trends, payment patterns, and transactional behavior using both statistical and ML-based approaches.
 
-###====================== Overview ======================###
+This project demonstrates an end-to-end ML pipeline with validation, feature engineering, hybrid anomaly detection, monitoring, and CI-enabled reproducibility — aligned with real-world MLOps practices.
 
-Business Anomaly Intelligence is a production-style machine learning pipeline designed to 
-detect anomalies in business metrics such as:
+---
 
---Daily Revenue
+## 🚀 Overview
 
---Payment Success/Failure Counts
+**Business Anomaly Intelligence** is a modular ML pipeline that detects anomalies in key business KPIs including:
 
---Transaction Patterns
+* Daily Revenue
+* Payment Success & Failure Counts
+* Transaction Patterns
+* Temporal Business Metrics
 
 The system combines:
 
---Statistical Baseline Detection
+* Statistical Baseline Detection (Z-score, IQR, MAD)
+* Isolation Forest (ML-based anomaly detection)
+* Business Impact Evaluation
+* Monitoring & Drift Checks
+* CI-enabled automated pipeline execution (Lite MLOps)
 
---Isolation Forest (ML-based anomaly detection)
+This simulates how real companies build anomaly monitoring systems for fintech, e-commerce, and SaaS analytics platforms.
 
---Business Impact Evaluation
+---
 
---Monitoring & Drift Checks
+## 🏗️ System Architecture
 
---CI-enabled automated pipeline execution
+```
+Data Source Layer
+  ├── SQL Database (Production Mode)
+  └── Synthetic Data (CI Mode)
+            ↓
+Data Validation Layer
+  ├── Schema Checks
+  ├── Missing Values Detection
+  └── Business Logic Validation
+            ↓
+Feature Engineering Layer
+  ├── Time Features
+  ├── Rolling Statistics
+  ├── Lag & Trend Features
+  └── Interaction Features (80+ Features)
+            ↓
+Hybrid Anomaly Detection
+  ├── Baseline Detector (Statistical)
+  │     ├── Z-score
+  │     ├── IQR
+  │     ├── MAD
+  │     └── Percentile Methods
+  │
+  └── ML Detector (Isolation Forest)
+        ├── Feature Scaling
+        ├── Contamination Control
+        └── Anomaly Scoring
+            ↓
+Evaluation Layer
+  ├── Model Agreement Analysis
+  ├── Business Impact Evaluation
+  └── Alert Rate Monitoring
+            ↓
+Monitoring Layer
+  ├── Data Health Checks
+  ├── Drift Detection
+  └── Prediction Monitoring
+            ↓
+Outputs & Artifacts
+  ├── Anomaly Flags
+  ├── Scores
+  ├── Logs
+  └── CI Validation Reports
+```
 
-This project demonstrates end-to-end ML pipeline design with Lite MLOps practices.
+---
 
+## 🔄 End-to-End Pipeline Stages
 
-###====================== System Architecture ======================###
-                ┌────────────────────────────┐
-                │      Data Source Layer     │
-                │  - SQL Database (Prod)     │
-                │  - Synthetic Data (CI)     │
-                └─────────────┬──────────────┘
-                              ↓
-                ┌────────────────────────────┐
-                │     Data Validation Layer  │
-                │  - Schema checks           │
-                │  - Missing values          │
-                │  - Business logic rules    │
-                └─────────────┬──────────────┘
-                              ↓
-                ┌────────────────────────────┐
-                │   Feature Engineering      │
-                │  - Time features           │
-                │  - Rolling statistics      │
-                │  - Lag features            │
-                │  - Trend features          │
-                │  - Interaction features    │
-                └─────────────┬──────────────┘
-                              ↓
-        ┌─────────────────────┴─────────────────────┐
-        │                                           │
-        ↓                                           ↓
-┌────────────────────┐                   ┌────────────────────┐
-│ Baseline Detector  │                   │   ML Detector      │
-│ (Statistical)      │                   │ (Isolation Forest) │
-│ - Z-score          │                   │ - Scaled features  │
-│ - IQR              │                   │ - Contamination    │
-│ - MAD              │                   │ - Anomaly scores   │
-└────────────┬───────┘                   └────────────┬───────┘
-             ↓                                        ↓
-              └──────────────┬────────────────────────┘
-                             ↓
-                ┌────────────────────────────┐
-                │     Evaluation Layer       │
-                │  - Model agreement         │
-                │  - Business impact         │
-                │  - Alert rate analysis     │
-                └─────────────┬──────────────┘
-                              ↓
-                ┌────────────────────────────┐
-                │      Monitoring Layer      │
-                │  - Data health             │
-                │  - Drift detection         │
-                │  - Alert monitoring        │
-                └─────────────┬──────────────┘
-                              ↓
-                ┌────────────────────────────┐
-                │  Outputs & Artifacts       │
-                │  - Anomaly flags           │
-                │  - Scores                  │
-                │  - Logs                    │
-                │  - CI validation           │
-                └────────────────────────────┘
+### Stage 1 — Data Extraction
 
+* SQL-based extraction (Production Mode)
+* Synthetic data generation (CI Mode)
+* Enables testing without database dependency
 
-###========= Pipeline Stages ==============###
-
-
-#------------------------------
-Stage 1 — Data Extraction
-#------------------------------
-
---SQL-based extraction (production mode)
-
---Synthetic data generation (CI mode)
-
---Supports automated testing without database dependency
-
-
-
-#------------------------------
-Stage 2 — Data Validation
-#------------------------------
+### Stage 2 — Data Validation
 
 Comprehensive validation including:
 
---Schema checks
+* Schema validation
+* Missing date detection
+* Revenue sanity checks
+* Payment consistency validation
+* Outlier detection (IQR)
+* Business rule validation
 
---Missing dates detection
+Outputs a structured validation report.
 
---Revenue sanity checks
+### Stage 3 — Feature Engineering
 
---Payment consistency validation
+Generates 80+ engineered features:
 
---Outlier detection (IQR)
+* Time-based features (day, month, cyclical encoding)
+* Rolling statistics
+* Lag features
+* Trend indicators
+* Exponential moving averages
+* Interaction features
+* Statistical summaries
 
---Business logic validation
+All missing values handled safely.
 
-Outputs structured validation report.
-
-
-
-#------------------------------
-Stage 3 — Feature Engineering
-#------------------------------
-
-Creates 80+ features including:
-
---Time-based features (day, month, cyclical encoding)
-
---Rolling statistics
-
---Lag features
-
---Trend features
-
---Exponential moving averages
-
---Interaction features
-
---Statistical summaries
-
-Missing values handled safely.
-
-
-#------------------------------
-Stage 4 — Baseline Detection (Statistical)
-#------------------------------
+### Stage 4 — Baseline Detection (Statistical)
 
 Multi-method anomaly detection:
 
---Global Z-score
+* Global Z-score
+* Rolling Z-score
+* IQR Method
+* MAD (Median Absolute Deviation)
+* Percentile-based detection
+* Ensemble anomaly scoring
 
---Rolling Z-score
+### Stage 5 — ML Detection
 
---IQR method
+Model: **Isolation Forest**
 
---MAD method
+* Feature scaling
+* Contamination-based thresholding
+* Anomaly scoring
+* Flag generation
+* Model persistence support
 
---Percentile detection
+### Stage 6 — Evaluation Layer
 
---Ensemble anomaly scoring
+* Baseline vs ML agreement analysis
+* Cohen’s Kappa score
+* Business impact assessment
+* Alert rate health analysis
+* Temporal anomaly pattern insights
 
+### Stage 7 — Monitoring Layer
 
+* Data schema checks
+* Data freshness monitoring
+* Statistical drift detection
+* Alert rate monitoring
+* Prediction drift checks
 
-#------------------------------
-Stage 5 — ML Detection
-#------------------------------
+Health Status Outputs:
 
-Model: Isolation Forest
+* 🟢 Healthy
+* 🟡 Warning
+* 🔴 Critical
 
---Feature scaling
+---
 
---Contamination-based anomaly threshold
+## ⚙️ CI / Lite MLOps Pipeline
 
---Anomaly scoring
+This project includes a GitHub Actions CI pipeline.
 
---Flag generation
+On every push to `main`:
 
---Model persistence support
+* Environment setup (Python 3.10)
+* Dependency installation
+* Synthetic data injection (CI mode)
+* Full pipeline execution
+* Automated validation checks
 
+### CI ensures:
 
+* Reproducibility
+* Automated testing
+* Pipeline reliability
+* Deployment readiness
 
-#------------------------------
-Stage 6 — Evaluation
-#------------------------------
---Baseline vs ML agreement
---Cohen’s Kappa score
---Business impact analysis
---Alert rate health
---Temporal anomaly pattern analysis
+This demonstrates foundational **MLOps practices** in a lightweight production setting.
 
+---
 
+## 🧠 Tech Stack
 
-#------------------------------
-Stage 7 — Monitoring
-#------------------------------
+| Category            | Technology                       |
+| ------------------- | -------------------------------- |
+| Language            | Python 3.10                      |
+| Data Processing     | Pandas, NumPy                    |
+| ML Model            | Isolation Forest (Scikit-learn)  |
+| Feature Engineering | Custom Statistical Features      |
+| Validation          | Custom Data Validation Framework |
+| Monitoring          | Drift & Health Checks            |
+| CI/CD               | GitHub Actions                   |
+| Logging             | Python Logging Framework         |
 
-Includes:
+---
 
---Data schema checks
+## 📊 Sample Output
 
---Volume freshness checks
+Pipeline generates:
 
---Statistical drift detection
+* `baseline_anomaly_flag`
+* `ml_anomaly_flag`
+* `ml_anomaly_score`
+* Evaluation metrics
+* Monitoring reports
+* Feature summary (80+ features)
 
---Model alert rate monitoring
+Example:
 
+```
+metric_date  daily_revenue  ml_anomaly_flag  ml_anomaly_score
+2024-02-12   21515.37       0                -0.088
+2024-02-13   20530.18       0                -0.097
+2024-02-14   20583.43       0                -0.095
+2024-02-15   18765.69       0                -0.061
+2024-02-16   22485.45       0                -0.065
+```
 
---Prediction drift checks
+---
 
-Outputs health status:
+## ▶️ How to Run Locally
 
---🟢 Healthy
+### 1. Install Dependencies
 
---🟡 Warning
-
---🔴 Critical
-
-
-
-###=============== CI/Lite CD(MLOps Layer) ==============###
-
-
-This project includes GitHub Actions CI.
-
-On every push to main:
-
---Environment setup (Python 3.10)
-
---Dependencies installation
-
---Pipeline execution in CI mode
-
---Synthetic data injection
-
---Full pipeline run validation
-
-
-
-CI ensures:
-
---Reproducibility
-
---Automated testing
-
---Code reliability
-
---Deployment readiness
-
-This demonstrates foundational MLOps capability.
-
-
-###============== Tech Stack ==============###
-
-
---Python 3.10
-
---Pandas
-
---NumPy
-
---Scikit-learn
-
---Isolation Forest
-
---Logging Framework
-
---GitHub Actions (CI/CD)
-
-
-###============== Sample Output =============###
-
-
-Pipeline output includes:
-
---baseline_anomaly_flag
-
---ml_anomaly_flag
-
---ml_anomaly_score
-
---Evaluation metrics
-
---Monitoring reports
-
---Feature summary (80+ features generated)
-
-
- metric_date  daily_revenue  ...  ml_anomaly_flag  ml_anomaly_score
-42  2024-02-12   21515.372136  ...                0         -0.088579
-43  2024-02-13   20530.185628  ...                0         -0.097466
-44  2024-02-14   20583.434503  ...                0         -0.095230
-45  2024-02-15   18765.696453  ...                0         -0.061334
-46  2024-02-16   22485.451532  ...                0         -0.065957
-
-
-###============ How to Run Locally ===============###
-
-1️.Install dependencies
-
+```bash
 pip install -r requirements.txt
+```
 
-2.Run the pipeline
+### 2. Run the Pipeline
 
+```bash
 python -m src.pipeline.run_pipeline
+```
 
+---
 
-###============== Key Highlights =============###
+## ⭐ Key Highlights
 
---Modular architecture
+* Modular end-to-end ML pipeline
+* Hybrid anomaly detection (Statistical + ML)
+* Business-aware evaluation framework
+* Monitoring and drift detection included
+* CI-enabled reproducibility
+* Production-style logging and validation
+* Synthetic + Production data compatibility
 
---Baseline + ML hybrid approach
+---
 
---Business-aware anomaly evaluation
+## 🔮 Future Enhancements
 
---Monitoring layer included
+* Real-time streaming ingestion (Kafka / APIs)
+* Experiment tracking (MLflow)
+* Docker containerization
+* REST API deployment (FastAPI)
+* Automated model retraining
+* Monitoring dashboard (Grafana / Streamlit)
 
---CI-enabled reproducibility
+---
 
---Production-style logging
+## 🏷️ Project Classification
 
+**End-to-End Machine Learning Pipeline + Lite MLOps Implementation**
 
-###============ Future Enhancements ============###
+This project covers the full ML lifecycle:
+Data → Validation → Features → Model → Evaluation → Monitoring → CI
 
---Integrate real-time streaming data (Kafka / API ingestion)
+---
 
---Add experiment tracking (MLflow)
+## 👩‍💻 Author
 
---Containerize with Docker for production deployment
-
---Deploy as REST API (FastAPI)
-
---Add automated model retraining
-
---Integrate monitoring dashboard (Grafana / Streamlit)
-
-
-###=========== Project Classification =============###
-
-This project represents: End-to-End ML Pipeline + Lite MLOps Implementation
-
-Not just model training — but full lifecycle design.
-
-
-
-Author
-
-Hanah Al Haris
-
+**Hana Al Haris**
 AI / ML Engineering Student
+Portfolio Project – ML Pipeline & MLOps Systems
